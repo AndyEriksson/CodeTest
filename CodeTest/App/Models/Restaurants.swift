@@ -5,9 +5,9 @@
 //  Created by Andy  on 2024-05-09.
 //
 
-import Foundation
+import SwiftUI
 
-struct Resturants {
+struct Restaurants {
     var restaurants: [Restaurant]
 }
 
@@ -18,18 +18,20 @@ struct Restaurant: Identifiable {
     var imageUrl: URL?
     var rating: Double
     var deliveryTimeMinutes: Int
+    var isOpen: Status?
 }
 
-extension Resturants {
-    init?(_ response: RestaurantsResponse) {
-        self.restaurants = response.restaurants.map { response in
+extension Restaurants {
+    init?(_ response: RestaurantsResponse, isOpen: Restaurant.Status? = nil) {
+        self.restaurants = response.restaurants.map { restaurant in
             Restaurant(
-                id: response.id,
-                name: response.name,
-                filterIds: response.filterIds,
-                imageUrl: URL(string: response.imageUrl),
-                rating: response.rating,
-                deliveryTimeMinutes: response.deliveryTimeMinutes
+                id: restaurant.id,
+                name: restaurant.name,
+                filterIds: restaurant.filterIds,
+                imageUrl: URL(string: restaurant.imageUrl),
+                rating: restaurant.rating,
+                deliveryTimeMinutes: restaurant.deliveryTimeMinutes,
+                isOpen: isOpen
             )
         }
     }
@@ -40,5 +42,30 @@ extension Restaurant {
     var formattedRating: String {
         String(format: "%.1f", rating)
     }
+    
+    enum Status: String {
+        case open = "Open"
+        case closed = "Closed"
+        
+        var text: String {
+            self.rawValue
+        }
+        
+        var color: Color {
+            switch self {
+            case .open:
+                    .positive
+            case .closed:
+                    .negative
+            }
+        }
+    }
+    
+    static func status(from isOpen: Bool?) -> Status? {
+            guard let isOpen = isOpen else {
+                return nil
+            }
+            return isOpen ? .open : .closed
+        }
     
 }

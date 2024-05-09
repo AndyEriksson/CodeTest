@@ -11,6 +11,7 @@ import SwiftUI
 class MainViewModel: ObservableObject {
     private let networkService: NetworkService
     @Published var restaurants: [Restaurant] = []
+    @Published var selectedRestaurant: Restaurant?
     @Published var selectedBadgeId: String?
     @Published var isPresented = false
 
@@ -27,7 +28,7 @@ class MainViewModel: ObservableObject {
 
     @MainActor
     func fetchRestaurants() async {
-        let result = await networkService.getRestaurants()
+        let result = await networkService.getRestaurantsWithOpenStatus()
         switch result {
         case .success(let restaurantsResponse):
             self.restaurants = restaurantsResponse.restaurants
@@ -36,8 +37,9 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    func togglePresentation() {
-        isPresented.toggle()
+    func selectRestaurant(_ restaurant: Restaurant) {
+        selectedRestaurant = restaurant
+        isPresented = true
     }
     
     func selectBadge(with id: String) {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ResturantCard: View {
+struct RestaurantCard: View {
     
     let model: Restaurant
     
@@ -65,7 +65,7 @@ struct ResturantCard: View {
 }
 
 #Preview {
-    ResturantCard(model:
+    RestaurantCard(model:
             .init(id: "1",
                   name: "Andy's fik",
                   filterIds: ["2", "3", "4"],

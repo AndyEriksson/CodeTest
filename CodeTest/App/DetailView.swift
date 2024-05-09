@@ -11,16 +11,22 @@ struct DetailView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    let model: Restaurant
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
             
             VStack(alignment: .center, spacing: 0) {
-                Image(.test)
-                    .resizable()
-                    .frame(height: 220)
-                    .scaledToFit()
+                AsyncImage(url: model.imageUrl) { image in
+                    image
+                        .resizable()
+                        .frame(height: 220)
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                }
                 
-                DetailCard(model: .init(title: "Andy's crab shack", tags: .mock, status: .open))
+                DetailCard(model: model)
                     .padding(.horizontal, 16)
                     .offset(y: -45)
                 
@@ -43,5 +49,13 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView()
+    DetailView(model:
+            .init(id: "1",
+                  name: "Andy's fik",
+                  filterIds: ["2", "3", "4"],
+                  imageUrl: URL(string: "https://food-delivery.umain.io/images/restaurant/burgers.png")!,
+                  rating: 3.6,
+                  deliveryTimeMinutes: 29,
+                  isOpen: .open)
+    )
 }

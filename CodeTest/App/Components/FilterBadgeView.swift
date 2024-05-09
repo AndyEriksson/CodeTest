@@ -21,14 +21,18 @@ struct FilterBadgeView: View {
                 .shadow(color: .badgeShadow, radius: 10, x: 0, y: 4)
             
             HStack(alignment: .center, spacing: 8) {
-                Image(systemName: model.image) // TODO: Fix this
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-                    .background(.red)
-                    .clipShape(Circle())
+                AsyncImage(url: model.imageUrl) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .background(.red)
+                        .clipShape(Circle())
+                } placeholder: {
+                    ProgressView()
+                }
                 
-                Text(model.title)
+                Text(model.name)
                     .foregroundStyle(.darkText)
                     .font(.customtitle2)
                     .padding(.trailing, 16)

@@ -8,15 +8,27 @@
 import Foundation
 
 struct FilterBadge: Identifiable {
-    var id: String = UUID().uuidString
-    let title: String
-    let image: String // TODO: Fix this
+    let id: String
+    let name: String
+    let imageUrl: URL?
 }
 
 extension FilterBadge {
     
     static var mock: FilterBadge {
-        .init(title: "Top Rated", image: "medal")
+        FilterBadge(id: "1",
+                    name: "Top Rated",
+                    imageUrl: URL(string: "https://food-delivery.umain.io/images/filter/filter_top_rated.png")
+        )
     }
     
 }
+
+extension FilterBadge {
+    init?(_ response: FilterResponse) {
+        self.id = response.id
+        self.name = response.name
+        self.imageUrl = URL(string:response.imageUrl)
+    }
+}
+

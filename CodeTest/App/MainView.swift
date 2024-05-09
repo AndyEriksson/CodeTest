@@ -41,17 +41,21 @@ struct MainView: View {
     private var cardsView: some View {
         ScrollView {
             VStack(spacing: 16) {
-                ForEach(viewModel.restaurants) { item in
-                    ResturantCard(model: item)
+                ForEach(viewModel.restaurants) { model in
+                    RestaurantCard(model: model)
                         .onTapGesture {
-                            viewModel.togglePresentation()
+                            viewModel.selectRestaurant(model)
                         }
-                        .fullScreenCover(isPresented: $viewModel.isPresented, content: {
-                            DetailView()
-                        })
                 }
             }
             .padding(.horizontal, 16)
+        }
+        .fullScreenCover(isPresented: $viewModel.isPresented, onDismiss: {
+            viewModel.isPresented = false
+        }) {
+            if let selectedRestaurant = viewModel.selectedRestaurant {
+                DetailView(model: selectedRestaurant)
+            }
         }
     }
     

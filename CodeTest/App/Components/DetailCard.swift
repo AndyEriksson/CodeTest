@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailCard: View {
     
-    let model: DetailCardModel
+    let model: Restaurant
     
     var body: some View {
         ZStack {
@@ -20,15 +20,15 @@ struct DetailCard: View {
             
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(model.title)
+                    Text(model.name)
                         .foregroundStyle(.darkText)
                         .font(.customheadline1)
-                    Text(model.tags.formattedTags)
+                    Text("N/A")
                         .foregroundStyle(.subtitle)
                         .font(.customheadline2)
-                    Text(model.status.text)
+                    Text(model.isOpen?.text ?? "")
                         .font(.customtitle1)
-                        .foregroundStyle(model.status.color)
+                        .foregroundStyle(model.isOpen?.color ?? .clear)
                 }
                 .padding(16)
                 
@@ -40,6 +40,14 @@ struct DetailCard: View {
 }
 
 #Preview {
-    DetailCard(model: .init(title: "Andys gryma fik", tags: .mock, status: .open))
-        .fixedSize()
+    DetailCard(model:
+            .init(id: "1",
+                  name: "Andy's fik",
+                  filterIds: ["2", "3", "4"],
+                  imageUrl: URL(string: "https://food-delivery.umain.io/images/restaurant/burgers.png")!,
+                  rating: 3.6,
+                  deliveryTimeMinutes: 29,
+                  isOpen: .open)
+    )
+    .fixedSize()
 }
