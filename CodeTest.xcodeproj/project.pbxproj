@@ -17,6 +17,10 @@
 		BB7837742BEAD39900B8FE3E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB7837732BEAD39900B8FE3E /* Colors.xcassets */; };
 		BBA49D752BEAE0F9004B3F09 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA49D742BEAE0F9004B3F09 /* View+Extensions.swift */; };
 		BBA49D782BEAE1AB004B3F09 /* ResturantCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA49D772BEAE1AB004B3F09 /* ResturantCard.swift */; };
+		BBC4494B2BECDB5C0084925C /* DetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC4494A2BECDB5C0084925C /* DetailCard.swift */; };
+		BBC4494E2BECE0DC0084925C /* DetailCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC4494D2BECE0DC0084925C /* DetailCardModel.swift */; };
+		BBC449502BECE10E0084925C /* ResturantCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC4494F2BECE10E0084925C /* ResturantCardModel.swift */; };
+		BBC449522BECE14A0084925C /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC449512BECE14A0084925C /* Tags.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,10 @@
 		BB7837732BEAD39900B8FE3E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		BBA49D742BEAE0F9004B3F09 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		BBA49D772BEAE1AB004B3F09 /* ResturantCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResturantCard.swift; sourceTree = "<group>"; };
+		BBC4494A2BECDB5C0084925C /* DetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCard.swift; sourceTree = "<group>"; };
+		BBC4494D2BECE0DC0084925C /* DetailCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardModel.swift; sourceTree = "<group>"; };
+		BBC4494F2BECE10E0084925C /* ResturantCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResturantCardModel.swift; sourceTree = "<group>"; };
+		BBC449512BECE14A0084925C /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +118,7 @@
 		BB7837752BEAD3C400B8FE3E /* App */ = {
 			isa = PBXGroup;
 			children = (
+				BBC4494C2BECE0B50084925C /* Models */,
 				BBA49D762BEAE193004B3F09 /* Components */,
 				BB78375A2BEAC37400B8FE3E /* CodeTestApp.swift */,
 				BB78375C2BEAC37400B8FE3E /* ContentView.swift */,
@@ -125,8 +134,19 @@
 			isa = PBXGroup;
 			children = (
 				BBA49D772BEAE1AB004B3F09 /* ResturantCard.swift */,
+				BBC4494A2BECDB5C0084925C /* DetailCard.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		BBC4494C2BECE0B50084925C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BBC4494D2BECE0DC0084925C /* DetailCardModel.swift */,
+				BBC4494F2BECE10E0084925C /* ResturantCardModel.swift */,
+				BBC449512BECE14A0084925C /* Tags.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,10 +222,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBC4494B2BECDB5C0084925C /* DetailCard.swift in Sources */,
 				BB78376B2BEAC67A00B8FE3E /* CustomFont.swift in Sources */,
 				BB78375D2BEAC37400B8FE3E /* ContentView.swift in Sources */,
+				BBC449522BECE14A0084925C /* Tags.swift in Sources */,
 				BBA49D752BEAE0F9004B3F09 /* View+Extensions.swift in Sources */,
 				BB78375B2BEAC37400B8FE3E /* CodeTestApp.swift in Sources */,
+				BBC4494E2BECE0DC0084925C /* DetailCardModel.swift in Sources */,
+				BBC449502BECE10E0084925C /* ResturantCardModel.swift in Sources */,
 				BBA49D782BEAE1AB004B3F09 /* ResturantCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

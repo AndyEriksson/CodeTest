@@ -7,22 +7,6 @@
 
 import SwiftUI
 
-struct ResturantCardModel: Hashable {
-    let title: String
-    let tags: [String]
-    let rating: Double
-}
-
-extension ResturantCardModel {
-    var formattedTags: String {
-        tags.joined(separator: " • ")
-    }
-    
-    var formattedRating: String {
-        String(format: "%.1f", rating)
-    }
-}
-
 struct ResturantCard: View {
     
     let model: ResturantCardModel
@@ -30,9 +14,10 @@ struct ResturantCard: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color.background.shadow(.drop(color: .shadow, radius: 4, x: 0, y: 4)))
+                .cornerRadius(12, corners: [.topLeft, .topRight])
+                .foregroundColor(Color.white)
+                .shadow(color: .shadow, radius: 4, x: 0, y: 4)
                 
-            
             VStack(spacing: 8) {
                 Image(.test)
                     .resizable()
@@ -45,11 +30,11 @@ struct ResturantCard: View {
                         Text(model.title)
                             .foregroundStyle(.darkText)
                             .font(.customtitle1)
-                        Text(model.formattedTags)
+                        Text(model.tags.formattedTags)
                             .foregroundStyle(.subtitle)
                             .font(.customsubtitle1)
                         HStack(spacing: 3) {
-                            Image(systemName: "clock")
+                            Image(systemName: "clock") // TODO: Where do I get this icon?
                                 .resizable()
                                 .frame(width: 10, height: 10)
                                 .foregroundStyle(.red) // TODO: Ask design if #FF5252 a color that is missing in Figma or if I should add it
@@ -71,17 +56,15 @@ struct ResturantCard: View {
                         Text("\(model.formattedRating)")
                             .font(.customfooter1)
                             .foregroundColor(.primary)
-                        
                     }
                     .padding(.trailing, 8)
                 }
             }
-            .cornerRadius(12, corners: [.topLeft, .topRight])
         }
-        
     }
 }
 
 #Preview {
-    ResturantCard(model: .init(title: "Andy's grymma fik", tags: ["breakfest","Party","Cookies"], rating: 3.6))
+    ResturantCard(model: .init(title: "Andy's grymma fik", tags: .mock, rating: 3.6))
+        .fixedSize()
 }
