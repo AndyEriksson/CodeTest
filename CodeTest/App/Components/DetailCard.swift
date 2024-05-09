@@ -35,6 +35,7 @@ struct DetailCard: View {
                 Spacer()
             }
         }
+        .frame(height: 144)
     }
 }
 

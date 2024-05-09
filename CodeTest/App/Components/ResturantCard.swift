@@ -12,55 +12,51 @@ struct ResturantCard: View {
     let model: ResturantCardModel
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .cornerRadius(12, corners: [.topLeft, .topRight])
-                .foregroundColor(.cardBackground)
-                .shadow(color: .shadow, radius: 4, x: 0, y: 4)
-                
-            VStack(spacing: 8) {
-                Image(.test)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 132)
-                    .clipped()
-                
-                HStack(alignment: .top) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(model.title)
-                            .foregroundStyle(.darkText)
-                            .font(.customtitle1)
-                        Text(model.tags.formattedTags)
-                            .foregroundStyle(.subtitle)
-                            .font(.customsubtitle1)
-                        HStack(spacing: 3) {
-                            Image(systemName: "clock") // TODO: Where do I get this icon?
-                                .resizable()
-                                .frame(width: 10, height: 10)
-                                .foregroundStyle(.clock)
-                                .padding(.vertical, 1)
-                            Text("30 mins")
-                                .foregroundStyle(.darkText)
-                                .font(.customfooter1)
-                        }
-                    }
-                    .padding(.leading, 8)
-                    .padding(.bottom, 8)
-                    Spacer()
-                    
+        VStack(spacing: 8) {
+            Image(.test)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 132)
+                .clipped()
+            
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(model.title)
+                        .foregroundStyle(.darkText)
+                        .font(.customtitle1)
+                    Text(model.tags.formattedTags)
+                        .foregroundStyle(.subtitle)
+                        .font(.customsubtitle1)
                     HStack(spacing: 3) {
-                        Image(systemName: "star.fill") // TODO: Where do I get this icon?
+                        Image(systemName: "clock") // TODO: Where do I get this icon?
                             .resizable()
-                            .frame(width: 12, height: 12)
-                            .foregroundColor(.star)
-                        Text("\(model.formattedRating)")
+                            .frame(width: 10, height: 10)
+                            .foregroundStyle(.clock)
+                            .padding(.vertical, 1)
+                        Text("30 mins")
+                            .foregroundStyle(.darkText)
                             .font(.customfooter1)
-                            .foregroundColor(.primary)
                     }
-                    .padding(.trailing, 8)
                 }
+                .padding(.leading, 8)
+                .padding(.bottom, 8)
+                Spacer()
+                
+                HStack(spacing: 3) {
+                    Image(systemName: "star.fill") // TODO: Where do I get this icon?
+                        .resizable()
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(.star)
+                    Text("\(model.formattedRating)")
+                        .font(.customfooter1)
+                        .foregroundColor(.primary)
+                }
+                .padding(.trailing, 8)
             }
         }
+        .background(Color.cardBackground)
+        .cornerRadius(12, corners: [.topLeft, .topRight])
+        .shadow(color: .shadow, radius: 4, x: 0, y: 4)
     }
 }
 
