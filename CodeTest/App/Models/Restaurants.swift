@@ -15,7 +15,7 @@ struct Restaurant: Identifiable {
     var id: String
     var name: String
     var filterIds: [String]
-    var imageUrl: URL
+    var imageUrl: URL?
     var rating: Double
     var deliveryTimeMinutes: Int
 }
@@ -27,7 +27,7 @@ extension Resturants {
                 id: response.id,
                 name: response.name,
                 filterIds: response.filterIds,
-                imageUrl: URL(string: response.imageUrl)!, // TODO: REMOVE !
+                imageUrl: URL(string: response.imageUrl),
                 rating: response.rating,
                 deliveryTimeMinutes: response.deliveryTimeMinutes
             )
