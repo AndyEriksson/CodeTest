@@ -15,7 +15,7 @@ struct DetailCard: View {
         ZStack {
             Rectangle()
                 .cornerRadius(12, corners: .allCorners)
-                .foregroundColor(Color.white)
+                .foregroundColor(.cardBackground)
                 .shadow(color: .shadow, radius: 4, x: 0, y: 4)
             
             HStack(spacing: 0) {

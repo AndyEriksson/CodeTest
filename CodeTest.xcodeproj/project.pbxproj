@@ -21,6 +21,9 @@
 		BBC4494E2BECE0DC0084925C /* DetailCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC4494D2BECE0DC0084925C /* DetailCardModel.swift */; };
 		BBC449502BECE10E0084925C /* ResturantCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC4494F2BECE10E0084925C /* ResturantCardModel.swift */; };
 		BBC449522BECE14A0084925C /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC449512BECE14A0084925C /* Tags.swift */; };
+		BBC449542BECED160084925C /* FilterBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC449532BECED160084925C /* FilterBadgeView.swift */; };
+		BBC449562BECEE230084925C /* FilterBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC449552BECEE230084925C /* FilterBadge.swift */; };
+		BBC449582BECFAC30084925C /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC449572BECFAC30084925C /* Header.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,9 @@
 		BBC4494D2BECE0DC0084925C /* DetailCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardModel.swift; sourceTree = "<group>"; };
 		BBC4494F2BECE10E0084925C /* ResturantCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResturantCardModel.swift; sourceTree = "<group>"; };
 		BBC449512BECE14A0084925C /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
+		BBC449532BECED160084925C /* FilterBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBadgeView.swift; sourceTree = "<group>"; };
+		BBC449552BECEE230084925C /* FilterBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBadge.swift; sourceTree = "<group>"; };
+		BBC449572BECFAC30084925C /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,8 @@
 			children = (
 				BBA49D772BEAE1AB004B3F09 /* ResturantCard.swift */,
 				BBC4494A2BECDB5C0084925C /* DetailCard.swift */,
+				BBC449532BECED160084925C /* FilterBadgeView.swift */,
+				BBC449572BECFAC30084925C /* Header.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -145,6 +153,7 @@
 				BBC4494D2BECE0DC0084925C /* DetailCardModel.swift */,
 				BBC4494F2BECE10E0084925C /* ResturantCardModel.swift */,
 				BBC449512BECE14A0084925C /* Tags.swift */,
+				BBC449552BECEE230084925C /* FilterBadge.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -224,12 +233,15 @@
 			files = (
 				BBC4494B2BECDB5C0084925C /* DetailCard.swift in Sources */,
 				BB78376B2BEAC67A00B8FE3E /* CustomFont.swift in Sources */,
+				BBC449562BECEE230084925C /* FilterBadge.swift in Sources */,
 				BB78375D2BEAC37400B8FE3E /* ContentView.swift in Sources */,
+				BBC449582BECFAC30084925C /* Header.swift in Sources */,
 				BBC449522BECE14A0084925C /* Tags.swift in Sources */,
 				BBA49D752BEAE0F9004B3F09 /* View+Extensions.swift in Sources */,
 				BB78375B2BEAC37400B8FE3E /* CodeTestApp.swift in Sources */,
 				BBC4494E2BECE0DC0084925C /* DetailCardModel.swift in Sources */,
 				BBC449502BECE10E0084925C /* ResturantCardModel.swift in Sources */,
+				BBC449542BECED160084925C /* FilterBadgeView.swift in Sources */,
 				BBA49D782BEAE1AB004B3F09 /* ResturantCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

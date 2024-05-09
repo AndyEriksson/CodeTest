@@ -15,7 +15,7 @@ struct ResturantCard: View {
         ZStack {
             Rectangle()
                 .cornerRadius(12, corners: [.topLeft, .topRight])
-                .foregroundColor(Color.white)
+                .foregroundColor(.cardBackground)
                 .shadow(color: .shadow, radius: 4, x: 0, y: 4)
                 
             VStack(spacing: 8) {
@@ -37,7 +37,7 @@ struct ResturantCard: View {
                             Image(systemName: "clock") // TODO: Where do I get this icon?
                                 .resizable()
                                 .frame(width: 10, height: 10)
-                                .foregroundStyle(.red) // TODO: Ask design if #FF5252 a color that is missing in Figma or if I should add it
+                                .foregroundStyle(.clock)
                                 .padding(.vertical, 1)
                             Text("30 mins")
                                 .foregroundStyle(.darkText)
@@ -52,7 +52,7 @@ struct ResturantCard: View {
                         Image(systemName: "star.fill") // TODO: Where do I get this icon?
                             .resizable()
                             .frame(width: 12, height: 12)
-                            .foregroundColor(.yellow) // TODO: Ask design if #F9CA24 a color that is missing in Figma
+                            .foregroundColor(.star)
                         Text("\(model.formattedRating)")
                             .font(.customfooter1)
                             .foregroundColor(.primary)
