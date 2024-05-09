@@ -9,22 +9,26 @@ import SwiftUI
 
 struct ResturantCard: View {
     
-    let model: ResturantCardModel
+    let model: Restaurant
     
     var body: some View {
         VStack(spacing: 8) {
-            Image(.test)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 132)
-                .clipped()
+            AsyncImage(url: model.imageUrl) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxHeight: 132)
+                    .clipped()
+            } placeholder: {
+                ProgressView()
+            }
             
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(model.title)
+                    Text(model.name)
                         .foregroundStyle(.darkText)
                         .font(.customtitle1)
-                    Text(model.tags.formattedTags)
+                    Text("N/A")
                         .foregroundStyle(.subtitle)
                         .font(.customsubtitle1)
                     HStack(spacing: 3) {
@@ -33,7 +37,7 @@ struct ResturantCard: View {
                             .frame(width: 10, height: 10)
                             .foregroundStyle(.clock)
                             .padding(.vertical, 1)
-                        Text("30 mins")
+                        Text("\(model.deliveryTimeMinutes) mins")
                             .foregroundStyle(.darkText)
                             .font(.customfooter1)
                     }
@@ -61,6 +65,13 @@ struct ResturantCard: View {
 }
 
 #Preview {
-    ResturantCard(model: .init(title: "Andy's grymma fik", tags: .mock, rating: 3.6))
-        .fixedSize()
+    ResturantCard(model:
+            .init(id: "1",
+                  name: "Andy's fik",
+                  filterIds: ["2", "3", "4"],
+                  imageUrl: URL(string: "https://food-delivery.umain.io/images/restaurant/burgers.png")!,
+                  rating: 3.6,
+                  deliveryTimeMinutes: 29)
+    )
+    .fixedSize()
 }

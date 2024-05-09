@@ -9,22 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    let model = [
-        ResturantCardModel(title: "Test", tags: .mock, rating: 2.8),
-        ResturantCardModel(title: "Test", tags: .mock, rating: 2.8),
-        ResturantCardModel(title: "Test", tags: .mock, rating: 2.8),
-        ResturantCardModel(title: "Test", tags: .mock, rating: 2.8)
-    ]
-    
-    let badges = [
-        FilterBadge.mock,
-        FilterBadge.mock,
-        FilterBadge.mock,
-        FilterBadge.mock
-    ]
-    
-    @State private var selectedBadgeId: String?
-    @State private var isPresented = false
+    @StateObject var viewModel: MainViewModel
     
     var body: some View {
         VStack(spacing: 16) {
@@ -32,15 +17,20 @@ struct MainView: View {
             badgesView
             cardsView
         }
+        .onAppear {
+            Task {
+                await viewModel.fetchRestaurants()
+            }
+        }
     }
     
     private var badgesView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
-                ForEach(badges) { badge in
-                    FilterBadgeView(model: badge, isSelected: badge.id == selectedBadgeId)
+                ForEach(viewModel.badges) { badge in
+                    FilterBadgeView(model: badge, isSelected: badge.id == viewModel.selectedBadgeId)
                         .onTapGesture {
-                            selectedBadgeId = badge.id
+                            viewModel.selectBadge(with: badge.id)
                         }
                 }
             }
@@ -51,12 +41,12 @@ struct MainView: View {
     private var cardsView: some View {
         ScrollView {
             VStack(spacing: 16) {
-                ForEach(model, id: \.self) { item in
+                ForEach(viewModel.restaurants) { item in
                     ResturantCard(model: item)
                         .onTapGesture {
-                            isPresented.toggle()
+                            viewModel.togglePresentation()
                         }
-                        .fullScreenCover(isPresented: $isPresented, content: {
+                        .fullScreenCover(isPresented: $viewModel.isPresented, content: {
                             DetailView()
                         })
                 }
@@ -68,5 +58,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView(viewModel: MainViewModel(networkService: NetworkService()))
 }

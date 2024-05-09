@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct CodeTestApp: App {
+    
+    let networkService = NetworkService()
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(viewModel: MainViewModel(networkService: networkService))
         }
     }
+    
 }
