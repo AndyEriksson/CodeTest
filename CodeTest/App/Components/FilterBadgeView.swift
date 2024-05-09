@@ -23,11 +23,6 @@ struct FilterBadgeView: View {
             HStack(alignment: .center, spacing: 8) {
                 AsyncImage(url: model.imageUrl) { image in
                     image
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .background(.red)
-                        .clipShape(Circle())
                 } placeholder: {
                     ProgressView()
                 }

@@ -27,14 +27,14 @@ struct MainView: View {
     private var badgesView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
-                ForEach(viewModel.badges) { badge in
+                ForEach(viewModel.filterBadgesArray) { badge in
                     FilterBadgeView(model: badge, isSelected: badge.id == viewModel.selectedBadgeId)
                         .onTapGesture {
                             viewModel.selectBadge(with: badge.id)
                         }
                 }
             }
-            .padding(.leading, 16)
+            .padding(.horizontal, 16)
         }
     }
     
