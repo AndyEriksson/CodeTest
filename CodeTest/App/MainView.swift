@@ -9,11 +9,12 @@ struct MainView: View {
     @StateObject var viewModel: MainViewModel
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 0) {
             Header()
             badgesView
             cardsView
         }
+        .background(Color.background)
         .onAppear {
             Task {
                 await viewModel.fetchRestaurants()
@@ -23,7 +24,7 @@ struct MainView: View {
     
     private var badgesView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
+            HStack(spacing: Points.x2) {
                 ForEach(viewModel.filterBadgesArray) { badge in
                     FilterBadgeView(model: badge, isSelected: badge.id == viewModel.selectedBadgeId)
                         .onTapGesture {
@@ -31,13 +32,15 @@ struct MainView: View {
                         }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, Points.x2)
+            .padding(.top, Points.x2)
+            .padding(.bottom, Points.x3)
         }
     }
     
     private var cardsView: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(spacing: Points.x2) {
                 ForEach(viewModel.filteredRestaurants) { model in
                     RestaurantCard(model: model)
                         .onTapGesture {
@@ -45,7 +48,7 @@ struct MainView: View {
                         }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, Points.x2)
         }
         .fullScreenCover(isPresented: $viewModel.isPresented, onDismiss: {
             viewModel.isPresented = false

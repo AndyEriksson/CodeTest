@@ -7,7 +7,7 @@ import SwiftUI
 @main
 struct CodeTestApp: App {
     
-    let networkService = NetworkService()
+    private let networkService = NetworkService()
     
     var body: some Scene {
         WindowGroup {

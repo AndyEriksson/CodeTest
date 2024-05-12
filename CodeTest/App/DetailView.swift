@@ -8,7 +8,11 @@ struct DetailView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    let model: Restaurant
+    private let model: Restaurant
+    
+    init(model: Restaurant) {
+        self.model = model
+    }
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -24,7 +28,7 @@ struct DetailView: View {
                 }
                 
                 DetailCard(model: model)
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, Points.x2)
                     .offset(y: -45)
                 
                 Rectangle()

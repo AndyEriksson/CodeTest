@@ -8,7 +8,7 @@ struct Header: View {
     var body: some View {
         HStack {
             Image(.logo)
-                .padding(.leading, 16)
+                .padding(.leading, Points.x2)
             Spacer()
         }
         

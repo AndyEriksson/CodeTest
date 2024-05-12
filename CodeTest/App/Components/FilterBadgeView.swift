@@ -6,18 +6,22 @@ import SwiftUI
 
 struct FilterBadgeView: View {
     
-    let model: FilterBadge
+    private let model: FilterBadge
+    private var isSelected: Bool = false
     
-    var isSelected: Bool = false
+    init(model: FilterBadge, isSelected: Bool) {
+        self.model = model
+        self.isSelected = isSelected
+    }
     
     var body: some View {
         
         ZStack {
             Capsule(style: .circular)
-                .foregroundColor(isSelected ? .selected : .badgeBackground)
+                .foregroundColor(isSelected ? .selected : .white)
                 .shadow(color: .badgeShadow, radius: 10, x: 0, y: 4)
             
-            HStack(alignment: .center, spacing: 8) {
+            HStack(alignment: .center, spacing: Points.x1) {
                 AsyncImage(url: model.imageUrl) { image in
                     image
                 } placeholder: {
@@ -26,7 +30,7 @@ struct FilterBadgeView: View {
                 
                 Text(model.name)
                     .textStyle(font: .title2)
-                    .padding(.trailing, 16)
+                    .padding(.trailing, Points.x2)
             }
         }
         .frame(height: 48)
@@ -34,6 +38,6 @@ struct FilterBadgeView: View {
 }
 
 #Preview {
-    FilterBadgeView(model: .mock)
+    FilterBadgeView(model: .mock, isSelected: false)
         .fixedSize()
 }

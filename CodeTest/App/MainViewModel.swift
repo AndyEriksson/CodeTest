@@ -6,7 +6,9 @@ import Combine
 import SwiftUI
 
 class MainViewModel: ObservableObject {
+    
     private let networkService: NetworkService
+    
     @Published var allRestaurants: [Restaurant] = []
     @Published var filteredRestaurants: [Restaurant] = []
     @Published var filterBadge: [String: FilterBadge] = [:]
@@ -33,33 +35,35 @@ class MainViewModel: ObservableObject {
     
     @MainActor
     private func fetchFilterDetails(for restaurants: [Restaurant]) async {
-        var filterIDs = Set<String>()
-        for restaurant in restaurants {
-            filterIDs.formUnion(restaurant.filterIds)
-        }
-        
-        var filters: [String: FilterBadge] = [:]
-        for id in filterIDs {
-            let filterResult = await networkService.getFilter(with: id)
-            switch filterResult {
-            case .success(let filterBadge):
-                filters[id] = filterBadge
-            case .failure(let error):
-                print("Failed to fetch filter with ID \(id): \(error)")
+        var filterIDs = Set(restaurants.flatMap { $0.filterIds })
+            var filters: [String: FilterBadge] = [:]
+            
+            await withTaskGroup(of: (String, FilterBadge?).self) { [weak self] group in
+                guard let self else { return }
+                for id in filterIDs {
+                    group.addTask {
+                        let result = await self.networkService.getFilter(with: id)
+                        return (id, try? result.get())
+                    }
+                }
+                
+                for await (id, badge) in group {
+                    if let badge = badge {
+                        filters[id] = badge
+                    }
+                }
             }
-        }
-        
-        self.filterBadge = filters
+            
+            self.filterBadge = filters
     }
     
     private func applyFilter() {
-        if let filterId = selectedBadgeId {
-            filteredRestaurants = allRestaurants.filter { restaurant in
-                restaurant.filterIds.contains(filterId)
-            }
-        } else {
+        guard let filterId = selectedBadgeId else {
             filteredRestaurants = allRestaurants
+            return
         }
+        filteredRestaurants = allRestaurants.filter { $0.filterIds.contains(filterId)}
+        
     }
     
     func selectRestaurant(_ restaurant: Restaurant) {
