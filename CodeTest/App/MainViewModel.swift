@@ -10,10 +10,11 @@ import SwiftUI
 
 class MainViewModel: ObservableObject {
     private let networkService: NetworkService
-    @Published var restaurants: [Restaurant] = []
-    @Published var selectedRestaurant: Restaurant?
+    @Published var allRestaurants: [Restaurant] = []
+    @Published var filteredRestaurants: [Restaurant] = []
     @Published var filterBadge: [String: FilterBadge] = [:]
     @Published var selectedBadgeId: String?
+    @Published var selectedRestaurant: Restaurant?
     @Published var isPresented = false
     
     init(networkService: NetworkService) {
@@ -25,8 +26,9 @@ class MainViewModel: ObservableObject {
         let result = await networkService.getRestaurantsWithOpenStatus()
         switch result {
         case .success(let restaurantsResponse):
-            self.restaurants = restaurantsResponse.restaurants
+            self.allRestaurants = restaurantsResponse.restaurants
             await fetchFilterDetails(for: restaurantsResponse.restaurants)
+            applyFilter()
         case .failure(let error):
             print("Failed to fetch restaurants: \(error)")
         }
@@ -53,13 +55,28 @@ class MainViewModel: ObservableObject {
         self.filterBadge = filters
     }
     
+    private func applyFilter() {
+        if let filterId = selectedBadgeId {
+            filteredRestaurants = allRestaurants.filter { restaurant in
+                restaurant.filterIds.contains(filterId)
+            }
+        } else {
+            filteredRestaurants = allRestaurants
+        }
+    }
+    
     func selectRestaurant(_ restaurant: Restaurant) {
         selectedRestaurant = restaurant
         isPresented = true
     }
     
     func selectBadge(with id: String) {
-        selectedBadgeId = id
+        if selectedBadgeId == id {
+            selectedBadgeId = nil
+        } else {
+            selectedBadgeId = id
+        }
+        applyFilter()
     }
 }
 

@@ -41,7 +41,7 @@ struct MainView: View {
     private var cardsView: some View {
         ScrollView {
             VStack(spacing: 16) {
-                ForEach(viewModel.restaurants) { model in
+                ForEach(viewModel.filteredRestaurants) { model in
                     RestaurantCard(model: model)
                         .onTapGesture {
                             viewModel.selectRestaurant(model)
