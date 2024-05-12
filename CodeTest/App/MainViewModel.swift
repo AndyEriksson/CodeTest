@@ -2,7 +2,6 @@
 //  Created by Andy on 2024-05-09.
 //
 
-import Combine
 import SwiftUI
 
 class MainViewModel: ObservableObject {
@@ -15,6 +14,9 @@ class MainViewModel: ObservableObject {
     @Published var selectedBadgeId: String?
     @Published var selectedRestaurant: Restaurant?
     @Published var isPresented = false
+    
+    @Published var errorMessage: String?
+    @Published var showingAlert = false
     
     init(networkService: NetworkService) {
         self.networkService = networkService
@@ -29,32 +31,47 @@ class MainViewModel: ObservableObject {
             await fetchFilterDetails(for: restaurantsResponse.restaurants)
             applyFilter()
         case .failure(let error):
-            print("Failed to fetch restaurants: \(error)")
+            errorMessage = "Failed to fetch restaurants: \(error.localizedDescription)"
+            showingAlert = true
         }
     }
     
     @MainActor
     private func fetchFilterDetails(for restaurants: [Restaurant]) async {
         var filterIDs = Set(restaurants.flatMap { $0.filterIds })
-            var filters: [String: FilterBadge] = [:]
-            
-            await withTaskGroup(of: (String, FilterBadge?).self) { [weak self] group in
-                guard let self else { return }
-                for id in filterIDs {
-                    group.addTask {
-                        let result = await self.networkService.getFilter(with: id)
-                        return (id, try? result.get())
-                    }
-                }
-                
-                for await (id, badge) in group {
-                    if let badge = badge {
-                        filters[id] = badge
+        var filters: [String: FilterBadge] = [:]
+        var errors: [Error] = []
+        
+        await withTaskGroup(of: (String, Result<FilterBadge, Error>).self) { [weak self] group in
+            guard let self else { return }
+            for id in filterIDs {
+                group.addTask {
+                    do {
+                        let badge = try await self.networkService.getFilter(with: id).get()
+                        return (id, .success(badge))
+                    } catch {
+                        return (id, .failure(error))
                     }
                 }
             }
             
-            self.filterBadge = filters
+            for await (id, result) in group {
+                switch result {
+                case .success(let badge):
+                    filters[id] = badge
+                case .failure(let error):
+                    errors.append(error)
+                    print("Error fetching filter for ID \(id): \(error)")
+                }
+            }
+        }
+        
+        self.filterBadge = filters
+        
+        if !errors.isEmpty {
+            errorMessage = "Failed to fetch all filter details."
+            showingAlert = true
+        }
     }
     
     private func applyFilter() {
@@ -78,6 +95,11 @@ class MainViewModel: ObservableObject {
             selectedBadgeId = id
         }
         applyFilter()
+    }
+    
+    func resetErrorState() {
+        showingAlert = false
+        errorMessage = nil
     }
 }
 

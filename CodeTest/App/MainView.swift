@@ -20,6 +20,14 @@ struct MainView: View {
                 await viewModel.fetchRestaurants()
             }
         }
+        .alert("Error", isPresented: $viewModel.showingAlert) {
+            Button("Ok", role: .cancel) {
+                viewModel.resetErrorState()
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "An unknown error occurred")
+        }
+
     }
     
     private var badgesView: some View {
