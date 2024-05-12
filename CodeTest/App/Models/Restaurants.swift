@@ -8,7 +8,11 @@ struct Restaurants {
     var restaurants: [Restaurant]
 }
 
-struct Restaurant: Identifiable {
+struct Restaurant: Identifiable, Equatable {
+    static func == (lhs: Restaurant, rhs: Restaurant) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     var id: String
     var name: String
     var filterIds: [String]

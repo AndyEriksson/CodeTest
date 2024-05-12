@@ -30,11 +30,13 @@ struct MainView: View {
                         .onTapGesture {
                             viewModel.selectBadge(with: badge.id)
                         }
+                        .transition(.blurReplace)
                 }
             }
             .padding(.horizontal, Points.x2)
             .padding(.top, Points.x2)
             .padding(.bottom, Points.x3)
+            .animation(.easeInOut, value: viewModel.filterBadgesArray)
         }
     }
     
@@ -46,9 +48,11 @@ struct MainView: View {
                         .onTapGesture {
                             viewModel.selectRestaurant(model)
                         }
+                        .transition(.blurReplace)
                 }
             }
             .padding(.horizontal, Points.x2)
+            .animation(.easeInOut, value: viewModel.filteredRestaurants)
         }
         .fullScreenCover(isPresented: $viewModel.isPresented, onDismiss: {
             viewModel.isPresented = false

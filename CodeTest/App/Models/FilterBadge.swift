@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct FilterBadge: Identifiable {
+struct FilterBadge: Identifiable, Equatable {
     let id: String
     let name: String
     let imageUrl: URL?
