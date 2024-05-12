@@ -14,6 +14,7 @@ class MainViewModel: ObservableObject {
     @Published var selectedBadgeIds: [String] = []
     @Published var selectedRestaurant: Restaurant?
     @Published var isPresented = false
+    @Published var isLoading = false
     
     @Published var errorMessage: String?
     @Published var showingAlert = false
@@ -24,6 +25,9 @@ class MainViewModel: ObservableObject {
     
     @MainActor
     func fetchRestaurants() async {
+        isLoading = true
+        defer { isLoading = false }
+        
         let result = await networkService.getRestaurantsWithOpenStatus()
         switch result {
         case .success(let restaurantsResponse):

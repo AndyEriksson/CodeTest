@@ -7,27 +7,45 @@ import SwiftUI
 struct MainView: View {
     
     @StateObject var viewModel: MainViewModel
+    @State private var contentOpacity = 0.0
+    @State private var showContent = false
+    
     
     var body: some View {
-        VStack(spacing: 0) {
-            Header()
-            badgesView
-            cardsView
-        }
-        .background(Color.background)
-        .onAppear {
-            Task {
-                await viewModel.fetchRestaurants()
+        ZStack {
+            Color.background
+                .ignoresSafeArea()
+            
+            VStack(alignment: .center, spacing: 0) {
+                Header(isLoading: viewModel.isLoading)
+                    .transition(.blurReplace)
+                if showContent {
+                    badgesView
+                        .opacity(contentOpacity)
+                    cardsView
+                        .opacity(contentOpacity)
+                }
+            }
+            .onAppear {
+                Task {
+                    await viewModel.fetchRestaurants()
+                    withAnimation {
+                        showContent = true
+                    }
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        contentOpacity = 1.0
+                    }
+                }
+            }
+            .alert("Error", isPresented: $viewModel.showingAlert) {
+                Button("Ok", role: .cancel) {
+                    viewModel.resetErrorState()
+                }
+            } message: {
+                Text(viewModel.errorMessage ?? "An unknown error occurred")
             }
         }
-        .alert("Error", isPresented: $viewModel.showingAlert) {
-            Button("Ok", role: .cancel) {
-                viewModel.resetErrorState()
-            }
-        } message: {
-            Text(viewModel.errorMessage ?? "An unknown error occurred")
-        }
-
     }
     
     private var badgesView: some View {
