@@ -15,6 +15,7 @@ struct Restaurant: Identifiable {
     var id: String
     var name: String
     var filterIds: [String]
+    var filterBadges: [FilterBadge] = []
     var imageUrl: URL?
     var rating: Double
     var deliveryTimeMinutes: Int
@@ -41,6 +42,10 @@ extension Restaurant {
     
     var formattedRating: String {
         String(format: "%.1f", rating)
+    }
+    
+    var formattedFilterNames: String {
+        filterBadges.map { $0.name }.joined(separator: " • ")
     }
     
     enum Status: String {

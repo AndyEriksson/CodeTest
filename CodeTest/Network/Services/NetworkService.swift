@@ -54,11 +54,24 @@ struct NetworkService: HTTPClient, NetworkServiceProtocol {
                 let statusResult = await getOpenStatus(with: restaurant.id)
                 switch statusResult {
                 case .success(let openStatusResponse):
-                    restaurant.isOpen = Restaurant.status(from: openStatusResponse.isCurrentlyOpen) 
+                    restaurant.isOpen = Restaurant.status(from: openStatusResponse.isCurrentlyOpen)
                 case .failure(let error):
                     print("Failed to fetch open status for restaurant ID \(restaurant.id): \(error)")
                     restaurant.isOpen = nil
                 }
+
+                // Fetch filter badges asynchronously and handle them
+                let badgeResults = await fetchBadges(for: restaurant.filterIds)
+                restaurant.filterBadges = badgeResults.compactMap { result in
+                    switch result {
+                    case .success(let badge):
+                        return badge
+                    case .failure(let error):
+                        print("Failed to fetch badge: \(error)")
+                        return nil
+                    }
+                }
+                
                 updatedRestaurants.append(restaurant)
             }
             
@@ -69,4 +82,15 @@ struct NetworkService: HTTPClient, NetworkServiceProtocol {
         }
     }
 
+    private func fetchBadges(for filterIds: [String]) async -> [Result<FilterBadge, RequestError>] {
+        await withTaskGroup(of: Result<FilterBadge, RequestError>.self) { group in
+            for id in filterIds {
+                group.addTask {
+                    return await self.getFilter(with: id)
+                }
+            }
+            return await group.reduce(into: []) { $0.append($1) }
+        }
+    }
+    
 }

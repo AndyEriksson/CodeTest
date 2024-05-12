@@ -23,7 +23,7 @@ struct DetailCard: View {
                     Text(model.name)
                         .foregroundStyle(.darkText)
                         .font(.customheadline1)
-                    Text("N/A")
+                    Text(model.formattedFilterNames)
                         .foregroundStyle(.subtitle)
                         .font(.customheadline2)
                     Text(model.isOpen?.text ?? "")

@@ -28,7 +28,7 @@ struct RestaurantCard: View {
                     Text(model.name)
                         .foregroundStyle(.darkText)
                         .font(.customtitle1)
-                    Text("N/A")
+                    Text(model.formattedFilterNames)
                         .foregroundStyle(.subtitle)
                         .font(.customsubtitle1)
                     HStack(spacing: 3) {
