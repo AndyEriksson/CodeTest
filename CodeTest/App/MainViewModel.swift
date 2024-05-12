@@ -11,7 +11,7 @@ class MainViewModel: ObservableObject {
     @Published var allRestaurants: [Restaurant] = []
     @Published var filteredRestaurants: [Restaurant] = []
     @Published var filterBadge: [String: FilterBadge] = [:]
-    @Published var selectedBadgeId: String?
+    @Published var selectedBadgeIds: [String] = []
     @Published var selectedRestaurant: Restaurant?
     @Published var isPresented = false
     
@@ -38,7 +38,7 @@ class MainViewModel: ObservableObject {
     
     @MainActor
     private func fetchFilterDetails(for restaurants: [Restaurant]) async {
-        var filterIDs = Set(restaurants.flatMap { $0.filterIds })
+        let filterIDs = Set(restaurants.flatMap { $0.filterIds })
         var filters: [String: FilterBadge] = [:]
         var errors: [Error] = []
         
@@ -69,18 +69,19 @@ class MainViewModel: ObservableObject {
         self.filterBadge = filters
         
         if !errors.isEmpty {
-            errorMessage = "Failed to fetch all filter details."
+            errorMessage = "Failed to fetch filter details."
             showingAlert = true
         }
     }
     
     private func applyFilter() {
-        guard let filterId = selectedBadgeId else {
+        if selectedBadgeIds.isEmpty {
             filteredRestaurants = allRestaurants
-            return
+        } else {
+            filteredRestaurants = allRestaurants.filter { restaurant in
+                restaurant.filterIds.contains(where: {selectedBadgeIds.contains($0) })
+            }
         }
-        filteredRestaurants = allRestaurants.filter { $0.filterIds.contains(filterId)}
-        
     }
     
     func selectRestaurant(_ restaurant: Restaurant) {
@@ -89,10 +90,10 @@ class MainViewModel: ObservableObject {
     }
     
     func selectBadge(with id: String) {
-        if selectedBadgeId == id {
-            selectedBadgeId = nil
+        if selectedBadgeIds.contains(id) {
+            selectedBadgeIds.removeAll { $0 == id}
         } else {
-            selectedBadgeId = id
+            selectedBadgeIds.append(id)
         }
         applyFilter()
     }

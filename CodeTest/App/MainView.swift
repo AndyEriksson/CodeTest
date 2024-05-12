@@ -34,7 +34,7 @@ struct MainView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: Points.x2) {
                 ForEach(viewModel.filterBadgesArray) { badge in
-                    FilterBadgeView(model: badge, isSelected: badge.id == viewModel.selectedBadgeId)
+                    FilterBadgeView(model: badge, isSelected: viewModel.selectedBadgeIds.contains(badge.id))
                         .onTapGesture {
                             viewModel.selectBadge(with: badge.id)
                         }
