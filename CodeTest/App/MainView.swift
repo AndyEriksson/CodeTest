@@ -18,7 +18,6 @@ struct MainView: View {
             
             VStack(alignment: .center, spacing: 0) {
                 Header(isLoading: viewModel.isLoading)
-                    .transition(.blurReplace)
                 if showContent {
                     badgesView
                         .opacity(contentOpacity)

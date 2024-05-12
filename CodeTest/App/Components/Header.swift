@@ -16,6 +16,7 @@ struct Header: View {
     var body: some View {
         HStack(alignment: .center) {
             Image(.logo)
+                .foregroundStyle(.darkText)
                 .padding(.leading, Points.x2)
                 .background(GeometryReader { imageGeometry in
                     Color.clear
@@ -26,7 +27,7 @@ struct Header: View {
             Spacer()
             if isLoading {
                 ProgressView()
-                    .progressViewStyle(.circular)
+                    .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
                     .scaleEffect(1.5)
                     .offset(x: -logoWidth / 2)
                 Spacer()

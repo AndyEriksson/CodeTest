@@ -24,8 +24,15 @@ struct FilterBadgeView: View {
             HStack(alignment: .center, spacing: Points.x1) {
                 AsyncImage(url: model.imageUrl) { image in
                     image
+                        .frame(width: 48, height: 48)
                 } placeholder: {
-                    ProgressView()
+                    ZStack {
+                        Color.white
+                            .frame(width: 48, height: 48)
+                            .clipShape(Circle())
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
+                    }
                 }
                 
                 Text(model.name)

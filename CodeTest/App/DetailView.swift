@@ -24,15 +24,21 @@ struct DetailView: View {
                         .frame(height: 220)
                         .scaledToFit()
                 } placeholder: {
-                    ProgressView()
+                    ZStack {
+                        Color.white
+                            .frame(height: 220)
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
+                    }
                 }
                 
                 DetailCard(model: model)
                     .padding(.horizontal, Points.x2)
                     .offset(y: -45)
+                    .background(Color.background)
                 
                 Rectangle()
-                    .foregroundColor(.clear)
+                    .foregroundColor(.background)
                 
             }
             .foregroundColor(.background)

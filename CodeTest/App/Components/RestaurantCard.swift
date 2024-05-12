@@ -21,7 +21,12 @@ struct RestaurantCard: View {
                     .frame(maxHeight: 132)
                     .clipped()
             } placeholder: {
-                ProgressView()
+                ZStack {
+                    Color.white
+                        .frame(height: 132)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
+                }
             }
             
             detailStack
