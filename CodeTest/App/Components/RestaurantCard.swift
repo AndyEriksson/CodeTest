@@ -32,7 +32,7 @@ struct RestaurantCard: View {
                         .foregroundStyle(.subtitle)
                         .font(.customsubtitle1)
                     HStack(spacing: 3) {
-                        Image(systemName: "clock") // TODO: Where do I get this icon?
+                        Image(.clock)
                             .resizable()
                             .frame(width: 10, height: 10)
                             .foregroundStyle(.clock)
@@ -47,7 +47,7 @@ struct RestaurantCard: View {
                 Spacer()
                 
                 HStack(spacing: 3) {
-                    Image(systemName: "star.fill") // TODO: Where do I get this icon?
+                    Image(.star)
                         .resizable()
                         .frame(width: 12, height: 12)
                         .foregroundColor(.star)
