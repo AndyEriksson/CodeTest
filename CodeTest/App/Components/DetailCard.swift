@@ -16,16 +16,13 @@ struct DetailCard: View {
                 .shadow(color: .shadow, radius: 4, x: 0, y: 4)
             
             HStack(spacing: 0) {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 16) {
                     Text(model.name)
-                        .foregroundStyle(.darkText)
-                        .font(.customheadline1)
+                        .textStyle(font: .headline1)
                     Text(model.formattedFilterNames)
-                        .foregroundStyle(.subtitle)
-                        .font(.customheadline2)
+                        .textStyle(font: .headline2, color: .subtitle)
                     Text(model.isOpen?.text ?? "")
-                        .font(.customtitle1)
-                        .foregroundStyle(model.isOpen?.color ?? .clear)
+                        .textStyle(font: .title1, color: model.isOpen?.color ?? .clear)
                 }
                 .padding(16)
                 

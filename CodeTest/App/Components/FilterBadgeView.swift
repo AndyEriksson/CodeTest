@@ -25,8 +25,7 @@ struct FilterBadgeView: View {
                 }
                 
                 Text(model.name)
-                    .foregroundStyle(.darkText)
-                    .font(.customtitle2)
+                    .textStyle(font: .title2)
                     .padding(.trailing, 16)
             }
         }

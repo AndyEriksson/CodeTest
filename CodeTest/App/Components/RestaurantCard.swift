@@ -23,11 +23,9 @@ struct RestaurantCard: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(model.name)
-                        .foregroundStyle(.darkText)
-                        .font(.customtitle1)
+                        .textStyle(font: .title1)
                     Text(model.formattedFilterNames)
-                        .foregroundStyle(.subtitle)
-                        .font(.customsubtitle1)
+                        .textStyle(font: .subtitle1, color: .subtitle)
                     HStack(spacing: 3) {
                         Image(.clock)
                             .resizable()
@@ -35,8 +33,7 @@ struct RestaurantCard: View {
                             .foregroundStyle(.clock)
                             .padding(.vertical, 1)
                         Text("\(model.deliveryTimeMinutes) mins")
-                            .foregroundStyle(.darkText)
-                            .font(.customfooter1)
+                            .textStyle(font: .footer1)
                     }
                 }
                 .padding(.leading, 8)
@@ -49,8 +46,7 @@ struct RestaurantCard: View {
                         .frame(width: 12, height: 12)
                         .foregroundColor(.star)
                     Text("\(model.formattedRating)")
-                        .font(.customfooter1)
-                        .foregroundColor(.primary)
+                        .textStyle(font: .footer1)
                 }
                 .padding(.trailing, 8)
             }

@@ -8,6 +8,10 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
+    
+    func textStyle(font: Font.CustomFontType, color: Color = .darkText) -> some View {
+        self.modifier(TextStyleModifier(font: font, foregroundColor: color))
+    }
 }
 
 struct RoundedCorner: Shape {
