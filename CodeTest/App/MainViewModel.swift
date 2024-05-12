@@ -17,7 +17,7 @@ class MainViewModel: ObservableObject {
     init(networkService: NetworkService) {
         self.networkService = networkService
     }
-
+    
     @MainActor
     func fetchRestaurants() async {
         let result = await networkService.getRestaurantsWithOpenStatus()
@@ -35,7 +35,7 @@ class MainViewModel: ObservableObject {
     private func fetchFilterDetails(for restaurants: [Restaurant]) async {
         var filterIDs = Set<String>()
         for restaurant in restaurants {
-            filterIDs.formUnion(restaurant.filterIds) // TODO:
+            filterIDs.formUnion(restaurant.filterIds)
         }
         
         var filters: [String: FilterBadge] = [:]

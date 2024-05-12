@@ -62,13 +62,6 @@ struct RestaurantCard: View {
 }
 
 #Preview {
-    RestaurantCard(model:
-            .init(id: "1",
-                  name: "Andy's fik",
-                  filterIds: ["2", "3", "4"],
-                  imageUrl: URL(string: "https://food-delivery.umain.io/images/restaurant/burgers.png")!,
-                  rating: 3.6,
-                  deliveryTimeMinutes: 29)
-    )
+    RestaurantCard(model: .mock)
     .fixedSize()
 }

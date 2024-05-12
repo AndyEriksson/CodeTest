@@ -64,10 +64,22 @@ extension Restaurant {
     }
     
     static func status(from isOpen: Bool?) -> Status? {
-            guard let isOpen = isOpen else {
-                return nil
-            }
-            return isOpen ? .open : .closed
+        guard let isOpen = isOpen else {
+            return nil
         }
+        return isOpen ? .open : .closed
+    }
+    
+    static var mock: Restaurant {
+        Restaurant(
+            id: "1",
+            name: "Wayne's Smelly Eggs",
+            filterIds: ["1", "2", "3"],
+            imageUrl: URL(string: "https://food-delivery.umain.io/images/restaurant/burgers.png")!,
+            rating: 4.8,
+            deliveryTimeMinutes: 25,
+            isOpen: .closed
+        )
+    }
     
 }
