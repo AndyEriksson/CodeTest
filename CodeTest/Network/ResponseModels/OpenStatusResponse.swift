@@ -1,8 +1,5 @@
 //
-//  OpenStatusResponse.swift
-//  CodeTest
-//
-//  Created by Andy  on 2024-05-09.
+//  Created by Andy on 2024-05-09.
 //
 
 import Foundation

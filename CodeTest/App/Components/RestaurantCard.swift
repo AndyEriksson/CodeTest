@@ -1,8 +1,5 @@
 //
-//  ResturantCard.swift
-//  CodeTest
-//
-//  Created by Andy  on 2024-05-08.
+//  Created by Andy on 2024-05-08.
 //
 
 import SwiftUI

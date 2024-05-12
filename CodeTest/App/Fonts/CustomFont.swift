@@ -1,8 +1,5 @@
 //
-//  CustomFont.swift
-//  CodeTest
-//
-//  Created by Andy  on 2024-05-07.
+//  Created by Andy on 2024-05-07.
 //
 
 import SwiftUI
