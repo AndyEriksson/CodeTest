@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FilterBadgeView: View {
     
@@ -22,18 +23,15 @@ struct FilterBadgeView: View {
                 .shadow(color: .badgeShadow, radius: 10, x: 0, y: 4)
             
             HStack(alignment: .center, spacing: Points.x1) {
-                AsyncImage(url: model.imageUrl) { image in
-                    image
-                        .frame(width: 48, height: 48)
-                } placeholder: {
-                    ZStack {
+                KFImage(model.imageUrl)
+                    .placeholder {
                         Color.white
-                            .frame(width: 48, height: 48)
                             .clipShape(Circle())
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
                     }
-                }
+                    .resizable()
+                    .frame(width: 48, height: 48)
                 
                 Text(model.name)
                     .textStyle(font: .title2)

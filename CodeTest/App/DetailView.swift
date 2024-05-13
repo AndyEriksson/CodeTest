@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct DetailView: View {
     
@@ -18,19 +19,17 @@ struct DetailView: View {
         ZStack(alignment: .topLeading) {
             
             VStack(alignment: .center, spacing: 0) {
-                AsyncImage(url: model.imageUrl) { image in
-                    image
-                        .resizable()
-                        .frame(height: 220)
-                        .scaledToFit()
-                } placeholder: {
-                    ZStack {
-                        Color.white
-                            .frame(height: 220)
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
+                KFImage(model.imageUrl)
+                    .placeholder {
+                        ZStack {
+                            Color.white
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
+                        }
                     }
-                }
+                    .resizable()
+                    .frame(height: 220)
+                    .scaledToFit()
                 
                 DetailCard(model: model)
                     .padding(.horizontal, Points.x2)
@@ -51,7 +50,6 @@ struct DetailView: View {
             })
             .padding(.leading, 22)
         }
-        
     }
 }
 

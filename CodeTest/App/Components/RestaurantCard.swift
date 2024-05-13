@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct RestaurantCard: View {
     
@@ -14,20 +15,18 @@ struct RestaurantCard: View {
     
     var body: some View {
         VStack(spacing: Points.x1) {
-            AsyncImage(url: model.imageUrl) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxHeight: 132)
-                    .clipped()
-            } placeholder: {
-                ZStack {
-                    Color.white
-                        .frame(height: 132)
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
+            KFImage(model.imageUrl)
+                .placeholder {
+                    ZStack {
+                        Color.white
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .darkText))
+                    }
                 }
-            }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxHeight: 132)
+                .clipped()
             
             detailStack
         }
