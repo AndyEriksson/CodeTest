@@ -83,7 +83,11 @@ class MainViewModel: ObservableObject {
             filteredRestaurants = allRestaurants
         } else {
             filteredRestaurants = allRestaurants.filter { restaurant in
-                restaurant.filterIds.contains(where: {selectedBadgeIds.contains($0) })
+//                restaurant.filterIds.contains(where: {selectedBadgeIds.contains($0) })
+                
+                // When I open the project after sometime, I felt that the filtering logic were a bit wonky.
+                // This change ensures that only the restaurants which have all the selected filter IDs will be included in filteredRestaurants
+                selectedBadgeIds.allSatisfy { restaurant.filterIds.contains($0) }
             }
         }
     }
